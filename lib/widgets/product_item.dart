@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/providers/product.dart';
 import 'package:shopping_app/screens/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageSrc;
+  // final String id;
+  // final String title;
+  // final String imageSrc;
 
-  ProductItem({this.id, this.imageSrc, this.title});
+  // ProductItem({this.id, this.imageSrc, this.title});
 
   @override
   Widget build(BuildContext context) {
+    final product = Provider.of<Product>(context);
+
     return Card(
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -21,15 +25,16 @@ class ProductItem extends StatelessWidget {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(ProductDetailScreen.routeName);
+                        Navigator.of(context).pushNamed(
+                            ProductDetailScreen.routeName,
+                            arguments: product.id);
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
                         child: Image.network(
-                          imageSrc,
+                          product.imageUrl,
                           height: 200,
                           fit: BoxFit.contain,
                           width: double.infinity,
@@ -39,10 +44,19 @@ class ProductItem extends StatelessWidget {
                     Positioned(
                         right: 5,
                         top: 5,
-                        child: Card(
-                          child: Icon(Icons.favorite_border),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
+                        child: InkWell(
+                          onTap: () {
+                            product.isfavourite();
+                          },
+                          child: product.isfav
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Colors.redAccent,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Colors.grey,
+                                ),
                         ))
                   ],
                 ),
@@ -59,8 +73,8 @@ class ProductItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: <Widget>[
-                          Text(title),
-                          Text("\$ 99"),
+                          Text(product.title),
+                          Text('\$ ${product.price}'),
                         ],
                       ),
                       InkWell(
