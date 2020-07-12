@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/cart.dart';
+import 'package:shopping_app/widgets/free_delivery_card.dart';
+import 'package:shopping_app/widgets/cart_item.dart' as CartItemWidget;
 
 class CartScreen extends StatelessWidget {
   static const routeName = "/cart-screen";
@@ -12,48 +14,75 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("My Cart"),
       ),
-      body: Column(
-        children: <Widget>[
-          Card(
-              margin: const EdgeInsets.all(8),
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.local_shipping,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Free delivery ",
-                      style: TextStyle(
-                          color: Colors.blue[800],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16),
-                    ),
-                    Text(
-                      "on orders above \$ 9.99",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-              )),
-          Card(
-            margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Row(
+      bottomNavigationBar: Card(
+        elevation: 10,
+        margin: const EdgeInsets.all(0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
                 children: <Widget>[
-                  Text("Total"),
-                  Text(cart.totalAmount.toString())
+                  Text(
+                    "Total",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Chip(
+                    backgroundColor: Colors.blueAccent,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    label: Text(
+                      "\$ ${cart.totalAmount}",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                  )
                 ],
               ),
-            ),
+              RaisedButton(
+                onPressed: () {},
+                color: Colors.amber,
+                child: Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Place Order",
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          FreeDeliveyCard(),
+          Expanded(
+            child: ListView.builder(
+                itemCount: cart.items.length,
+                itemBuilder: (context, index) {
+                  return CartItemWidget.CartItem(
+                    id: cart.items.values.toList()[index].id,
+                    price: cart.items.values.toList()[index].price,
+                    quantity: cart.items.values.toList()[index].quantity,
+                    title: cart.items.values.toList()[index].title,
+                    imageUrl: cart.items.values.toList()[index].id,
+                  );
+                }),
           )
         ],
       ),
