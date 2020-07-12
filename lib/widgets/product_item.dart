@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/providers/cart.dart';
 import 'package:shopping_app/providers/product.dart';
 import 'package:shopping_app/screens/product_detail_screen.dart';
 
@@ -7,7 +8,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
-
+    final cart = Provider.of<Cart>(context);
     return Card(
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -72,7 +73,10 @@ class ProductItem extends StatelessWidget {
                           ],
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            cart.addItem(
+                                product.id, product.price, product.title);
+                          },
                           child: Card(
                               elevation: 1,
                               child: Container(

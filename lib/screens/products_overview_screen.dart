@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/products_wishlist_screen.dart';
+import 'package:shopping_app/widgets/cart_icon.dart';
 import 'package:shopping_app/widgets/products_grid.dart';
 
 class ProductsOverviewScreen extends StatelessWidget {
-  bool _showFav = false;
+  final bool _showFav = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +12,7 @@ class ProductsOverviewScreen extends StatelessWidget {
         title: Text("Shop"),
         actions: <Widget>[
           SizedBox(
-            width: 20,
+            width: 10,
           ),
           InkWell(
               onTap: () {
@@ -20,11 +21,11 @@ class ProductsOverviewScreen extends StatelessWidget {
               },
               child: Icon(Icons.favorite)),
           SizedBox(
-            width: 20,
+            width: 10,
           ),
-          Icon(Icons.shopping_cart),
+          CartIcon(),
           SizedBox(
-            width: 20,
+            width: 10,
           ),
         ],
       ),

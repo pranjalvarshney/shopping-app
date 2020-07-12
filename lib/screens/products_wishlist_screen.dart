@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/widgets/cart_icon.dart';
 import 'package:shopping_app/widgets/products_grid.dart';
 
 class ProductsWishlistScreen extends StatelessWidget {
   static const routeName = "/products-wishist-screen";
 
-  bool _showFav = true;
+  final bool _showFav = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,11 +14,11 @@ class ProductsWishlistScreen extends StatelessWidget {
         title: Text("My Wishlist"),
         actions: <Widget>[
           SizedBox(
-            width: 20,
+            width: 10,
           ),
-          Icon(Icons.shopping_cart),
+          CartIcon(),
           SizedBox(
-            width: 20,
+            width: 10,
           ),
         ],
       ),
