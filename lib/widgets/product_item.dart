@@ -35,14 +35,24 @@ class ProductItem extends StatelessWidget {
                         ),
                       ),
                       Positioned(
-                          right: 5,
-                          top: 5,
+                          right: 0,
+                          top: 0,
                           child: Consumer<Product>(
-                            builder: (context, product, child) => InkWell(
-                              onTap: () {
+                            builder: (context, product, child) => IconButton(
+                              onPressed: () {
                                 product.isfavourite();
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                    product.isfav
+                                        ? "Added successfully"
+                                        : "Removed successfully",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  backgroundColor: Colors.grey[500],
+                                  duration: Duration(seconds: 2),
+                                ));
                               },
-                              child: product.isfav
+                              icon: product.isfav
                                   ? Icon(
                                       Icons.favorite,
                                       color: Colors.redAccent,

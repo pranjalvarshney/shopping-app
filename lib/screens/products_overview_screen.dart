@@ -11,22 +11,13 @@ class ProductsOverviewScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Shop"),
         actions: <Widget>[
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-              onTap: () {
+          IconButton(
+              onPressed: () {
                 Navigator.of(context)
                     .pushNamed(ProductsWishlistScreen.routeName);
               },
-              child: Icon(Icons.favorite)),
-          SizedBox(
-            width: 10,
-          ),
+              icon: Icon(Icons.favorite)),
           CartIcon(),
-          SizedBox(
-            width: 10,
-          ),
         ],
       ),
       drawer: Drawer(),
