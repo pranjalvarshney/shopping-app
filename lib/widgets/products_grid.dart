@@ -4,7 +4,7 @@ import 'package:shopping_app/widgets/product_item.dart';
 import 'package:shopping_app/providers/products.dart';
 
 class ProductsGrid extends StatelessWidget {
-  bool _ishowFav;
+  final bool _ishowFav;
 
   ProductsGrid(this._ishowFav);
   @override
