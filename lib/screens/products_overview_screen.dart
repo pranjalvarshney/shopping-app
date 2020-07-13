@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_app/screens/products_wishlist_screen.dart';
 import 'package:shopping_app/widgets/cart_icon.dart';
+import 'package:shopping_app/widgets/main_drawer.dart';
 import 'package:shopping_app/widgets/products_grid.dart';
 
 class ProductsOverviewScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class ProductsOverviewScreen extends StatelessWidget {
           CartIcon(),
         ],
       ),
-      drawer: Drawer(),
+      drawer: MainDrawer(),
       body: ProductsGrid(_showFav),
     );
   }
