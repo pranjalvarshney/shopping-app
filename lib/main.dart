@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: ProductsOverviewScreen(),
         debugShowCheckedModeBanner: false,
+        initialRoute: ProductsOverviewScreen.routeName,
         routes: {
+          ProductsOverviewScreen.routeName: (context) =>
+              ProductsOverviewScreen(),
           ProductsWishlistScreen.routeName: (context) =>
               ProductsWishlistScreen(),
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/cart.dart';
+import 'package:shopping_app/screens/products_overview_screen.dart';
 import 'package:shopping_app/widgets/free_delivery_card.dart';
 import 'package:shopping_app/widgets/cart_item.dart' as CartItemWidget;
 
@@ -75,19 +76,53 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: <Widget>[
           FreeDeliveyCard(cart.totalAmount),
-          Expanded(
-            child: ListView.builder(
-                itemCount: cart.items.length,
-                itemBuilder: (context, index) {
-                  return CartItemWidget.CartItem(
-                    productId: cart.items.keys.toList()[index],
-                    id: cart.items.values.toList()[index].id,
-                    price: cart.items.values.toList()[index].price,
-                    quantity: cart.items.values.toList()[index].quantity,
-                    title: cart.items.values.toList()[index].title,
-                  );
-                }),
-          )
+          cart.items.length == 0
+              ? Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "Your cart is empty!",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(height: 16),
+                      Container(
+                        width: 200,
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushReplacementNamed(
+                                ProductsOverviewScreen.routeName);
+                          },
+                          color: Colors.blue,
+                          child: Container(
+                            height: 50,
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Continue shopping",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                      itemCount: cart.items.length,
+                      itemBuilder: (context, index) {
+                        return CartItemWidget.CartItem(
+                          productId: cart.items.keys.toList()[index],
+                          id: cart.items.values.toList()[index].id,
+                          price: cart.items.values.toList()[index].price,
+                          quantity: cart.items.values.toList()[index].quantity,
+                          title: cart.items.values.toList()[index].title,
+                        );
+                      }),
+                )
         ],
       ),
     );

@@ -4,6 +4,8 @@ import 'package:shopping_app/widgets/cart_icon.dart';
 import 'package:shopping_app/widgets/products_grid.dart';
 
 class ProductsOverviewScreen extends StatelessWidget {
+  static const routeName = "/products-overview-screen";
+
   final bool _showFav = false;
   @override
   Widget build(BuildContext context) {
