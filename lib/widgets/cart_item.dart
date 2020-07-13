@@ -1,42 +1,79 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/providers/cart.dart';
 
 class CartItem extends StatelessWidget {
   final String id;
   final String title;
   final double price;
-  final String imageUrl;
   final int quantity;
-  CartItem({this.id, this.imageUrl, this.price, this.title, this.quantity});
+  final String productId;
+  CartItem({this.id, this.price, this.productId, this.title, this.quantity});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              title: Text(title),
-              subtitle: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                      'Qty - ${quantity.toString()} X  \$ ${price.toString()}'),
-                  Text("\$ ${price * quantity}"),
-                ],
-              ),
-              trailing: Image.network(
-                imageUrl,
-                fit: BoxFit.contain,
-                height: 80,
-                width: 80,
-              ),
-            )
-          ],
+    return Dismissible(
+      key: ValueKey(id),
+      direction: DismissDirection.endToStart,
+      onDismissed: (direction) {
+        final cart = Provider.of<Cart>(context, listen: false);
+        cart.removeItem(productId);
+      },
+      background: Container(
+        color: Colors.grey[100],
+        padding: const EdgeInsets.all(20),
+        alignment: Alignment.centerRight,
+        child: Icon(
+          Icons.delete,
+          color: Colors.blueGrey,
+          size: 34,
+        ),
+      ),
+      child: Card(
+        elevation: 2,
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                title: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  child: Text(
+                    title,
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                subtitle: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Qty - ${quantity.toString()} X  \$ ${price.toString()}',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(
+                      height: 4,
+                    ),
+                    Text(
+                      "Total - \$ ${price * quantity}",
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+                trailing: Image.network(
+                  "https://thefinanser.com/wp-content/uploads/2019/10/Product.png",
+                  fit: BoxFit.cover,
+                  height: 100,
+                  width: 80,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
-    ;
   }
 }

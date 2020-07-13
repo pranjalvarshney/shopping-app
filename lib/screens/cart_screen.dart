@@ -70,17 +70,17 @@ class CartScreen extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          FreeDeliveyCard(),
+          FreeDeliveyCard(cart.totalAmount),
           Expanded(
             child: ListView.builder(
                 itemCount: cart.items.length,
                 itemBuilder: (context, index) {
                   return CartItemWidget.CartItem(
+                    productId: cart.items.keys.toList()[index],
                     id: cart.items.values.toList()[index].id,
                     price: cart.items.values.toList()[index].price,
                     quantity: cart.items.values.toList()[index].quantity,
                     title: cart.items.values.toList()[index].title,
-                    imageUrl: cart.items.values.toList()[index].id,
                   );
                 }),
           )

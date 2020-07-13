@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/products.dart';
+import 'package:shopping_app/screens/products_wishlist_screen.dart';
+import 'package:shopping_app/widgets/cart_icon.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   static const routeName = "/product-detail-screen";
@@ -14,8 +16,98 @@ class ProductDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(productDetail.title),
-        actions: <Widget>[Icon(Icons.settings)],
+        title: null,
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(ProductsWishlistScreen.routeName);
+              },
+              icon: Icon(Icons.favorite)),
+          CartIcon()
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(0),
+                  margin: const EdgeInsets.all(0),
+                  height: 400,
+                  width: double.infinity,
+                  child: Image.network(
+                    productDetail.imageUrl,
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
+                ),
+                Positioned(
+                  top: 5,
+                  right: 10,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.favorite,
+                      size: 36,
+                      color: Colors.red,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Container(
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.all(16),
+              color: Colors.white,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    productDetail.title,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+      bottomNavigationBar: Card(
+        elevation: 10,
+        margin: const EdgeInsets.all(0),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: RaisedButton(
+                onPressed: () {},
+                color: Colors.white,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  child: Text(
+                    "Add to cart",
+                    style: TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: RaisedButton(
+                onPressed: () {},
+                color: Colors.amber,
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 50,
+                  child: Text(
+                    "Buy now",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
