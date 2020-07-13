@@ -47,7 +47,6 @@ class ProductDetailScreen extends StatelessWidget {
                   top: 5,
                   right: 10,
                   child: IconButton(
-                    color: Colors.white,
                     onPressed: () {},
                     icon: Icon(
                       Icons.favorite_border,
@@ -59,7 +58,7 @@ class ProductDetailScreen extends StatelessWidget {
                   bottom: 5,
                   right: 10,
                   child: IconButton(
-                    color: Colors.white,
+                    color: Colors.grey,
                     onPressed: () {},
                     icon: Icon(
                       Icons.share,
