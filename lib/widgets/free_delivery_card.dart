@@ -53,7 +53,7 @@ class FreeDeliveyCard extends StatelessWidget {
                           fontSize: 16),
                     ),
                     Text(
-                      "on orders above \$ 9.99",
+                      "on orders above \$ 49.99",
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
                     )

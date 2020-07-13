@@ -47,26 +47,72 @@ class ProductDetailScreen extends StatelessWidget {
                   top: 5,
                   right: 10,
                   child: IconButton(
+                    color: Colors.white,
                     onPressed: () {},
                     icon: Icon(
-                      Icons.favorite,
+                      Icons.favorite_border,
                       size: 36,
-                      color: Colors.red,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 5,
+                  right: 10,
+                  child: IconButton(
+                    color: Colors.white,
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.share,
+                      size: 36,
                     ),
                   ),
                 )
               ],
             ),
             Container(
-              alignment: Alignment.topLeft,
               padding: const EdgeInsets.all(16),
               color: Colors.white,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     productDetail.title,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
-                  )
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    productDetail.description,
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        "MRP - ",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        "\$ ${productDetail.price}",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             )

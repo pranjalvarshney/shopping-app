@@ -18,49 +18,53 @@ class CartScreen extends StatelessWidget {
         elevation: 10,
         margin: const EdgeInsets.all(0),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    "Total",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Chip(
-                    backgroundColor: Colors.blueAccent,
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                    label: Text(
-                      "\$ ${cart.totalAmount}",
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Total",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                      ),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Chip(
+                      backgroundColor: Colors.blueAccent,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4, horizontal: 8),
+                      label: Text(
+                        "\$ ${cart.totalAmount}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-              RaisedButton(
-                onPressed: () {},
-                color: Colors.amber,
-                child: Container(
-                  height: 40,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Place Order",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
+              Expanded(
+                child: RaisedButton(
+                  onPressed: () {},
+                  color: Colors.amber,
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Place Order",
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
               )
