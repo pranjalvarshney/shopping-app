@@ -49,7 +49,7 @@ class CartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Qty - ${quantity.toString()} X  \$ ${price.toString()}',
+                      'Qty - ${quantity.toString()} X  \$ ${price.toStringAsFixed(2)}',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
@@ -57,7 +57,7 @@ class CartItem extends StatelessWidget {
                       height: 4,
                     ),
                     Text(
-                      "Total - \$ ${price * quantity}",
+                      "Total - \$ ${price.toStringAsFixed(2) * quantity}",
                       style:
                           TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
                     ),

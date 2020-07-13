@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 4, horizontal: 8),
                       label: Text(
-                        "\$ ${cart.totalAmount}",
+                        "\$ ${cart.totalAmount.toStringAsFixed(2)}",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
