@@ -60,4 +60,18 @@ class Products with ChangeNotifier {
 
     notifyListeners();
   }
+
+  void updateProduct(String pid, Product product) {
+    final indexp = _items.indexWhere((element) => element.id == pid);
+    if (indexp > 0) {
+      _items[indexp] = product;
+    } else {
+      print("no update");
+    }
+  }
+
+  void removeProduct(String pid) {
+    _items.removeWhere((item) => item.id == pid);
+    notifyListeners();
+  }
 }
