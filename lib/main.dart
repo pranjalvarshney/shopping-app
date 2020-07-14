@@ -4,10 +4,12 @@ import 'package:shopping_app/providers/cart.dart';
 import 'package:shopping_app/providers/orders.dart';
 import 'package:shopping_app/providers/products.dart';
 import 'package:shopping_app/screens/cart_screen.dart';
+import 'package:shopping_app/screens/edit_product_screen.dart';
 import 'package:shopping_app/screens/orders_screen.dart';
 import 'package:shopping_app/screens/product_detail_screen.dart';
 import 'package:shopping_app/screens/products_overview_screen.dart';
 import 'package:shopping_app/screens/products_wishlist_screen.dart';
+import 'package:shopping_app/screens/user_products_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,6 +33,8 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: ProductsOverviewScreen.routeName,
         routes: {
+          EditProductScreen.routeName: (context) => EditProductScreen(),
+          UserProductScreen.routeName: (context) => UserProductScreen(),
           OrdersScreen.routeName: (context) => OrdersScreen(),
           ProductsOverviewScreen.routeName: (context) =>
               ProductsOverviewScreen(),
