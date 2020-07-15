@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:shopping_app/providers/product.dart';
 
 class Products with ChangeNotifier {
@@ -49,19 +52,30 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == pid);
   }
 
-  void addProduct(Product product) {
-    final newProduct = new Product(
-        id: DateTime.now().toString(),
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl);
-    _items.insert(0, newProduct);
+  Future<void> addProduct(Product product) {
+    const url = "api here"; //only in firebase .json is used
+    return http
+        .post(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'price': product.price,
+              'imageUrl': product.imageUrl,
+            }))
+        .then((response) {
+      final newProduct = new Product(
+          id: json.decode(response.body)['name'],
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          imageUrl: product.imageUrl);
+      _items.insert(0, newProduct);
 
-    notifyListeners();
+      notifyListeners();
+    });
   }
 
-  void updateProduct(String pid, Product product) {
+  Future<void> updateProduct(String pid, Product product) {
     final indexp = _items.indexWhere((element) => element.id == pid);
     if (indexp > 0) {
       _items[indexp] = product;
@@ -70,7 +84,7 @@ class Products with ChangeNotifier {
     }
   }
 
-  void removeProduct(String pid) {
+  Future<void> removeProduct(String pid) {
     _items.removeWhere((item) => item.id == pid);
     notifyListeners();
   }
