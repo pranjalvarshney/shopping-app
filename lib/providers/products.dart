@@ -52,27 +52,32 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == pid);
   }
 
-  Future<void> addProduct(Product product) {
-    const url = "api here"; //only in firebase .json is used
-    return http
-        .post(url,
-            body: json.encode({
-              'title': product.title,
-              'description': product.description,
-              'price': product.price,
-              'imageUrl': product.imageUrl,
-            }))
-        .then((response) {
-      final newProduct = new Product(
-          id: json.decode(response.body)['name'],
-          title: product.title,
-          description: product.description,
-          price: product.price,
-          imageUrl: product.imageUrl);
-      _items.insert(0, newProduct);
+  Future<void> addProduct(Product product) async {
+    try {
+      const url =
+          "https://simple-shop-1ae70.firebaseio.com/products.jso"; //only in firebase .json is used
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+        }),
+      );
 
+      final newProduct = Product(
+        id: json.decode(response.body)['name'],
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+      );
+      _items.insert(0, newProduct);
       notifyListeners();
-    });
+    } catch (error) {
+      throw error;
+    }
   }
 
   Future<void> updateProduct(String pid, Product product) {
@@ -84,7 +89,7 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> removeProduct(String pid) {
+  void removeProduct(String pid) {
     _items.removeWhere((item) => item.id == pid);
     notifyListeners();
   }
