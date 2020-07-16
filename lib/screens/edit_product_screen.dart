@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/providers/product.dart';
 import 'package:shopping_app/providers/products.dart';
-import 'package:shopping_app/screens/user_products_screen.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = "/edit-product-screen";
@@ -18,8 +17,13 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageEditingController = TextEditingController();
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
-  var _product =
-      Product(id: null, description: "", imageUrl: "", price: 0, title: "");
+  var _product = Product(
+    id: null,
+    description: "",
+    imageUrl: "",
+    price: 0,
+    title: "",
+  );
 
   var _isInit = true;
   var _initValues = {
@@ -68,23 +72,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
-    if (!isValid) {
-      return;
-    }
+    // if (!isValid) {
+    //   return;
+    // }
 
     _form.currentState.save();
     setState(() {
       _isLoading = true;
     });
     if (_product.id != null) {
-      Provider.of<Products>(context, listen: false)
-          .updateProduct(_product.id, _product)
-          .then((_) {
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
-      });
+      await Provider.of<Products>(context, listen: false)
+          .updateProduct(_product.id, _product);
+      print("hihihihihihih");
     } else {
       try {
         await Provider.of<Products>(context, listen: false)
@@ -105,13 +104,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ],
           ),
         );
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-        Navigator.of(context).pop();
       }
     }
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   void _updateImageUrl() {
@@ -176,7 +174,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           if (value.isEmpty) {
                             return "Please enter a price";
                           }
-                          if (double.parse(value) <= 0.0) {
+                          if (double.tryParse(value) == null) {
                             return "Enter a valid price";
                           }
                           return null;

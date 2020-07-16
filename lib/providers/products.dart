@@ -104,13 +104,25 @@ class Products with ChangeNotifier {
     }
   }
 
-  Future<void> updateProduct(String pid, Product product) {
-    final indexp = _items.indexWhere((element) => element.id == pid);
-    if (indexp > 0) {
-      _items[indexp] = product;
-    } else {
-      print("no update");
-    }
+  Future<void> updateProduct(String pid, Product product) async {
+    try {
+      final indexp = _items.indexWhere((element) => element.id == pid);
+      if (indexp >= 0) {
+        final url =
+            "https://simple-shop-1ae70.firebaseio.com/products/$pid.json";
+        await http.patch(url,
+            body: json.encode({
+              'title': product.title,
+              'description': product.description,
+              'price': product.price,
+              'imageUrl': product.imageUrl,
+            }));
+        _items[indexp] = product;
+        notifyListeners();
+      } else {
+        print("no update");
+      }
+    } catch (e) {}
   }
 
   void removeProduct(String pid) {
