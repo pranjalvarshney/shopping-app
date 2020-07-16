@@ -72,9 +72,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
 
   Future<void> _saveForm() async {
     final isValid = _form.currentState.validate();
-    // if (!isValid) {
-    //   return;
-    // }
+    if (!isValid) {
+      return;
+    }
 
     _form.currentState.save();
     setState(() {
@@ -159,7 +159,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       },
                     ),
                     TextFormField(
-                        initialValue: _initValues['description'],
+                        initialValue: _initValues['price'],
                         decoration: InputDecoration(
                           labelText: "Price",
                         ),
@@ -189,7 +189,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                               description: _product.description);
                         }),
                     TextFormField(
-                      initialValue: _initValues['price'],
+                      initialValue: _initValues['description'],
                       decoration: InputDecoration(labelText: "Description"),
                       maxLines: 3,
                       focusNode: _descriptionFocusNode,
