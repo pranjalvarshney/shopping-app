@@ -125,8 +125,19 @@ class Products with ChangeNotifier {
     } catch (e) {}
   }
 
-  void removeProduct(String pid) {
-    _items.removeWhere((item) => item.id == pid);
-    notifyListeners();
+  Future<bool> removeProduct(String pid) async {
+    try {
+      final url = "https://simple-shop-1ae70.firebaseio.com/products/$pid.json";
+      final response = await http.delete(url);
+      if (response.statusCode >= 400) {
+        return false;
+      } else {
+        _items.removeWhere((item) => item.id == pid);
+        notifyListeners();
+        return true;
+      }
+    } catch (error) {
+      throw error;
+    }
   }
 }

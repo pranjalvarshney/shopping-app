@@ -32,9 +32,37 @@ class UserProductItem extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(Icons.delete),
-                onPressed: () {
-                  Provider.of<Products>(context, listen: false)
-                      .removeProduct(id);
+                onPressed: () async {
+                  try {
+                    final status =
+                        await Provider.of<Products>(context, listen: false)
+                            .removeProduct(id);
+                    if (status) {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Successfully deleted!"),
+                      ));
+                    } else {
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Unable to delete"),
+                      ));
+                    }
+                  } catch (e) {
+                    await showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: Text("An error occured"),
+                        content: Text("Please try again later"),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                            },
+                            child: Text("Ok"),
+                          )
+                        ],
+                      ),
+                    );
+                  }
                 },
               ),
             ],
