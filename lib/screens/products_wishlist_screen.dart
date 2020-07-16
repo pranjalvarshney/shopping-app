@@ -5,8 +5,6 @@ import 'package:shopping_app/widgets/products_grid.dart';
 class ProductsWishlistScreen extends StatelessWidget {
   static const routeName = "/products-wishist-screen";
 
-  final bool _showFav = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +20,7 @@ class ProductsWishlistScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ProductsGrid(_showFav),
+      body: ProductsGrid(true),
     );
   }
 }

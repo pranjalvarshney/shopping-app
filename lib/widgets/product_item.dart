@@ -7,8 +7,8 @@ import 'package:shopping_app/screens/product_detail_screen.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context);
-    final cart = Provider.of<Cart>(context);
+    final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
     return Card(
         elevation: 1,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -38,29 +38,31 @@ class ProductItem extends StatelessWidget {
                         right: 0,
                         top: 0,
                         child: Consumer<Product>(
-                          builder: (context, product, child) => IconButton(
+                          builder: (context, p, child) => IconButton(
                             onPressed: () {
-                              product.isfavourite();
-                              Scaffold.of(context).showSnackBar(SnackBar(
-                                content: Text(
-                                  product.isfav
-                                      ? "Added successfully"
-                                      : "Removed successfully",
-                                  textAlign: TextAlign.center,
-                                ),
-                                backgroundColor: Colors.grey[500],
-                                duration: Duration(seconds: 2),
-                              ));
+                              // // p.isfavourite();
+                              // Scaffold.of(context).showSnackBar(SnackBar(
+                              //   content: Text(
+                              //     p.isfav
+                              //         ? "Added successfully"
+                              //         : "Removed successfully",
+                              //     textAlign: TextAlign.center,
+                              //   ),
+                              //   backgroundColor: Colors.grey[500],
+                              //   duration: Duration(seconds: 2),
+                              // ));
                             },
-                            icon: product.isfav
-                                ? Icon(
-                                    Icons.favorite,
-                                    color: Colors.redAccent,
-                                  )
-                                : Icon(
-                                    Icons.favorite_border,
-                                    color: Colors.grey,
-                                  ),
+                            icon:
+                                //  p.isfav
+                                //     ? Icon(
+                                //         Icons.favorite,
+                                //         color: Colors.redAccent,
+                                //       )
+                                //     :
+                                Icon(
+                              Icons.favorite_border,
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                       )
