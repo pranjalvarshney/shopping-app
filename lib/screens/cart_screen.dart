@@ -62,21 +62,22 @@ class _CartScreenState extends State<CartScreen> {
                   onPressed: (cart.totalAmount == 0 || _isLoading)
                       ? null
                       : () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
                           try {
-                            setState(() {
-                              _isLoading = true;
-                            });
                             await Provider.of<Orders>(context, listen: false)
                                 .addOrder(cart.items.values.toList(),
                                     cart.totalAmount);
                             cart.clearCart();
+                            Future.delayed(Duration(seconds: 2));
                             Navigator.of(context)
                                 .pushReplacementNamed(OrdersScreen.routeName);
                           } catch (e) {
                             await showDialog(
                                 context: context,
                                 builder: (ctx) {
-                                  AlertDialog(
+                                  return AlertDialog(
                                     title: Text("An error occured"),
                                     content:
                                         Text("Unable to process your request"),
@@ -91,6 +92,9 @@ class _CartScreenState extends State<CartScreen> {
                                   );
                                 });
                           }
+                          setState(() {
+                            _isLoading = false;
+                          });
                         },
                   color: Colors.amber,
                   child: Container(

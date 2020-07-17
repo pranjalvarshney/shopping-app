@@ -52,25 +52,30 @@ class Products with ChangeNotifier {
     return _items.firstWhere((element) => element.id == pid);
   }
 
-  Future<void> fetchdata() async {
+  Future<bool> fetchdata() async {
     try {
       const url = "https://simple-shop-1ae70.firebaseio.com/products.json";
       final response = await http.get(url);
       final data = json.decode(response.body) as Map<String, dynamic>;
       final List<Product> loadProduct = [];
-      data.forEach((key, value) {
-        loadProduct.add(
-          Product(
-              id: key,
-              description: value['description'],
-              imageUrl: value['imageUrl'],
-              price: value['price'],
-              title: value['title'],
-              isfav: value['isfav']),
-        );
-      });
-      _items = loadProduct;
+      if (data == null) {
+        return false;
+      } else {
+        data.forEach((key, value) {
+          loadProduct.add(
+            Product(
+                id: key,
+                description: value['description'],
+                imageUrl: value['imageUrl'],
+                price: value['price'],
+                title: value['title'],
+                isfav: value['isfav']),
+          );
+        });
+        _items = loadProduct;
+      }
       notifyListeners();
+      return true;
     } catch (e) {
       throw e;
     }
