@@ -39,11 +39,19 @@ class UserProductItem extends StatelessWidget {
                             .removeProduct(id);
                     if (status) {
                       Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text("Successfully deleted!"),
+                        content: Text(
+                          "Successfully deleted!",
+                          textAlign: TextAlign.center,
+                        ),
+                        duration: Duration(milliseconds: 1500),
                       ));
                     } else {
                       Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text("Unable to delete"),
+                        content: Text(
+                          "Unable to delete",
+                          textAlign: TextAlign.center,
+                        ),
+                        duration: Duration(milliseconds: 1500),
                       ));
                     }
                   } catch (e) {
